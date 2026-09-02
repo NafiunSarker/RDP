@@ -10,7 +10,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Updated to v4 for macOS support
       - name: Connect Tailscale
         uses: tailscale/github-action@v4
         with:
@@ -18,10 +17,7 @@ jobs:
 
       - name: Configure User & Enable Remote Management (VNC)
         run: |
-          # Set password for runner user
-          sudo dscl . -passwd /Users/runner SecurePassword123!
-          
-          # Enable Apple Remote Desktop / VNC Services
+          sudo sysadminctl -resetPasswordFor runner -newPassword "SecurePassword123!"
           sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \
             -activate -configure -access -on \
             -clientfields 1 -legacy -setvnclegacy -vncsecret SecurePassword123! \
