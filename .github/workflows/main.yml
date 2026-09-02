@@ -10,15 +10,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Official Tailscale Action (Works natively on macOS)
+      # Updated to v4 for macOS support
       - name: Connect Tailscale
-        uses: tailscale/github-action@v2
+        uses: tailscale/github-action@v4
         with:
           authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
 
       - name: Configure User & Enable Remote Management (VNC)
         run: |
-          # Set password for the runner user
+          # Set password for runner user
           sudo dscl . -passwd /Users/runner SecurePassword123!
           
           # Enable Apple Remote Desktop / VNC Services
